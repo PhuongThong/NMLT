@@ -1,6 +1,5 @@
-﻿#include "Header.h"
+#include "Header.h"
 
-void Online(){}
 
 void FixConsoleWindow() {
 	HWND consoleWindow = GetConsoleWindow();
@@ -652,6 +651,20 @@ int main()
 {
 	while(1){
 		FixConsoleWindow();
+		GtxtColor(11);
+		GotoXY(0,7);
+		cout << "\t\t\t**********************************************************************" << endl;
+		cout << "\t\t\t**********************************************************************" << endl;
+		cout << "\t\t\t**     OXOXOXO          XOXOX        XOXOXOXOX        XOXOXOXO      **" << endl;
+		cout << "\t\t\t**   XOX      XO       XOX XOX       XOX     XOX    XOX      XOX    **" << endl;
+		cout << "\t\t\t**  XOX               XOX   XOX      XOX     XOX   XOX        XOX   **" << endl;
+		cout << "\t\t\t**  XOX              XOXOXOXOXOX     XOXXOXOXO     XOX        XOX   **" << endl;
+		cout << "\t\t\t**  XOX             XOX       XOX    XOX    XOX    XOX        XOX   **" << endl;
+		cout << "\t\t\t**   XOX      XO   XOX         XOX   XOX     XOX    XOX      XOX    **" << endl;
+		cout << "\t\t\t**     OXOXOXO    XOX           XOX  XOX      XOX     OXOXOXOX      **" << endl;
+		cout << "\t\t\t**********************************************************************" << endl;
+		cout << "\t\t\t**********************************************************************" << endl;
+		Sleep(1000);
 		GotoXY(0, 18);
 		GtxtColor(11);
 		cout << "\t\t\t\t\t*\t    NEW GAME              *" << endl;
@@ -672,15 +685,15 @@ int main()
 		case 3:
 			system("cls");
 			GtxtColor(14);
-			cout << "\t\t\t\t========TRONG GIAO DIEN TRO CHOI========" << endl;
+			cout << "\t========TRONG GIAO DIEN TRO CHOI========" << endl;
 			GtxtColor(11);
-			cout << "\t\t\t\t1. Su dung cac phim W, A, S, D hoac cac phim mui ten de di chuyen." << endl;
-			GtxtColor(14);
-			cout << "\t\t\t\t2. Su dung phim Space hoac Enter de thuc hien 1 nuoc danh." << endl;
+			cout << "\t1. Su dung cac phim W, A, S, D hoac cac phim mui ten de di chuyen." << endl;
 			GtxtColor(11);
-			cout << "\t\t\t\t3. Su dung ESC de thoat khoi tro choi." << endl;
+			cout << "\t2. Su dung phim Enter de thuc hien 1 nuoc danh." << endl;
+			GtxtColor(11);
+			cout << "\t3. Su dung ESC de thoat khoi tro choi." << endl;
 			GtxtColor(14);
-			cout << "\t\t\t\t******************************************" << endl;
+			cout << "\t******************************************" << endl;
 			system("pause");
 			system("cls");
 			break;
@@ -695,6 +708,4 @@ int main()
 		if (x == 5) return 0;
 	}
 }
-
-
 
