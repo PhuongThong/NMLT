@@ -72,44 +72,61 @@ bool IsWin() {
 void DrawBoard(int pSize) {
 	GtxtColor(10);
 	for (int i = 0; i <= pSize; i++) {
-
 		for (int j = 0; j <= pSize; j++) {
-
 			GotoXY(LEFT + 4 * i, TOP + 2 * j);
-
-			printf(".");
-
+			cout << ".";
 		}
 	}
-	for (int i = 0; i <= pSize * 5; i++) {
-		//vẽ viền trên
-		GotoXY(LEFT + pSize * 4 + i + 3, TOP - 1);
+	//Vẽ bàn cờ
+	//Vẽ viền trên
+	int h = (pSize * 9 + 4) / 2;
+	int p = h;
+	while (h >= 0 && p <= pSize * 9 + 4)
+	{
+		GotoXY(LEFT + h - 1, TOP - 1);
 		cout << "_";
-		//vẽ viền dưới
-		GotoXY(LEFT + pSize * 4 + i + 3, TOP + pSize * 2 + 1);
+		Sleep(1);
+		GotoXY(LEFT + p - 1, TOP - 1);
 		cout << "_";
-		Sleep(10);
+		Sleep(1);
+		h--;
+		p++;
 	}
-	//vẽ viền phải 
-	for (int i = 0; i < pSize * 2 + 2; i++) {
-		GotoXY(LEFT + pSize * 9 + 3, TOP + i);
+	for (int j = 0; j < pSize * 2 + 2; j++) {
+		//vẽ viền trái
+		GotoXY(LEFT - 1, TOP + j);
 		cout << "|";
-	////ve vien trai
-	//for (int i = 0; i < pSize * 2 + 3; i++) {
-		GotoXY(LEFT + pSize * 4 + 3 , TOP + i);
+		//vẽ viền phải
+		GotoXY(LEFT + pSize * 9 + 3, TOP + j );
 		cout << "|";
-		Sleep(15);
+		Sleep(14);
 	}
-	//vẽ vạch chia cắt ô thứ 1
+	//Vẽ viền dưới
+	int th = pSize * 9 + 3;
+	int p2 = 0;
+	while (th >= (pSize * 9 + 3) / 2 && p2 <= (pSize * 9 + 3) / 2)
+	{
+		GotoXY(LEFT + th - 1, TOP + pSize * 2 + 1);
+		cout << "_";
+		Sleep(1);
+		GotoXY(LEFT  + p2, TOP + pSize * 2 + 1);
+		cout << "_";
+		Sleep(1);
+		th--;
+		p2++;
+	}
+	//Vẽ viền bảng điểm
+	for (int i = pSize * 2 + 1; i >= 0; i--) {
+			GotoXY(LEFT + pSize * 4 + 3 , TOP + i);
+			cout << "|";
+			Sleep(14);
+	}
+	//vẽ vạch chia cắt ô
 	for (int i = 0; i < pSize * 5 - 1; i++)
 	{
 		GotoXY(LEFT + pSize * 4 + i + 4 , TOP + 12);
 		cout << "+";
-	//}
-	////vẽ vạch chia ô thứ 2
-	//for (int i = 0; i < pSize * 5; i++)
-	//{
-		GotoXY(LEFT + pSize * 4 + i + 4, TOP + 15);
+		GotoXY(LEFT + pSize * 4 + i + 4, TOP + 16);
 		cout << "+";
 		Sleep(10);
 	}
@@ -144,10 +161,10 @@ int ProcessFinish(int pWhoWin) {
 		Win1++;
 		for (int i = 7; i < 15; i++)
 		{
-			GotoXY(61, 21);
+			GotoXY(62, 15);
 			GtxtColor(i);
 			printf("Nguoi choi 1 da thang va nguoi choi 2 da thua\n", true, false);
-			Sleep(500);
+			Sleep(400);
 		}
 		flagLoad = 0;
 		flagWin = 1;
@@ -161,10 +178,10 @@ int ProcessFinish(int pWhoWin) {
 		Win2++;
 		for (int i = 7; i < 15; i++)
 		{
-			GotoXY(61, 21);
+			GotoXY(62, 15);
 			GtxtColor(i);
 			printf("Nguoi choi 2 da thang va nguoi choi 1 da thua\n", true, false);
-			Sleep(500);
+			Sleep(400);
 		}
 		flagLoad = 0;
 		flagWin = 1;
@@ -503,14 +520,16 @@ int selectMenu()
 
 void Win_Lose()
 {
-	GotoXY(60,6);
+	GotoXY(60,7);
 	GtxtColor(15);
 	cout << "WIN:";
-	GotoXY(47, 5);
+	GotoXY(59, 8);
+	cout << "STEP:";
+	GotoXY(47, 6);
 	cout << "\t\t\t        PLAYER1	     -	   PLAYER2";
-	GotoXY(49, 6);
-	cout << "\t\t           " << Win1 << "	     -	      " << Win2;
 	GotoXY(49, 7);
+	cout << "\t\t           " << Win1 << "	     -	      " << Win2;
+	GotoXY(49, 8);
 	cout << "\t\t           " << _COUNT1 << "	     -	      " << _COUNT2;
 }
 
