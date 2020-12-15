@@ -1,6 +1,5 @@
-﻿#include "Header.h"
+#include "Header.h"
 
-void Online(){}
 
 void FixConsoleWindow() {
 	HWND consoleWindow = GetConsoleWindow();
@@ -71,7 +70,7 @@ bool IsWin() {
 }
 
 void DrawBoard(int pSize) {
-
+	GtxtColor(10);
 	for (int i = 0; i <= pSize; i++) {
 
 		for (int j = 0; j <= pSize; j++) {
@@ -81,6 +80,38 @@ void DrawBoard(int pSize) {
 			printf(".");
 
 		}
+	}
+	for (int i = 0; i <= pSize * 5; i++) {
+		//vẽ viền trên
+		GotoXY(LEFT + pSize * 4 + i + 3, TOP - 1);
+		cout << "_";
+		//vẽ viền dưới
+		GotoXY(LEFT + pSize * 4 + i + 3, TOP + pSize * 2 + 1);
+		cout << "_";
+		Sleep(10);
+	}
+	//vẽ viền phải 
+	for (int i = 0; i < pSize * 2 + 2; i++) {
+		GotoXY(LEFT + pSize * 9 + 3, TOP + i);
+		cout << "|";
+	////ve vien trai
+	//for (int i = 0; i < pSize * 2 + 3; i++) {
+		GotoXY(LEFT + pSize * 4 + 3 , TOP + i);
+		cout << "|";
+		Sleep(15);
+	}
+	//vẽ vạch chia cắt ô thứ 1
+	for (int i = 0; i < pSize * 5 - 1; i++)
+	{
+		GotoXY(LEFT + pSize * 4 + i + 4 , TOP + 12);
+		cout << "+";
+	//}
+	////vẽ vạch chia ô thứ 2
+	//for (int i = 0; i < pSize * 5; i++)
+	//{
+		GotoXY(LEFT + pSize * 4 + i + 4, TOP + 15);
+		cout << "+";
+		Sleep(10);
 	}
 }
 
@@ -107,12 +138,17 @@ int ProcessFinish(int pWhoWin) {
 
 	GotoXY(0, _A[BOARD_SIZE - 1][BOARD_SIZE - 1].y + 2); // Nhảy tới vị trí
 	 // thích hợp để in chuỗi thắng/thua/hòa
-
 	switch (pWhoWin) {
 
 	case -1:
 		Win1++;
-		printf("Nguoi choi %d da thang va nguoi choi %d da thua\n", true, false);
+		for (int i = 7; i < 15; i++)
+		{
+			GotoXY(61, 21);
+			GtxtColor(i);
+			printf("Nguoi choi 1 da thang va nguoi choi 2 da thua\n", true, false);
+			Sleep(500);
+		}
 		flagLoad = 0;
 		flagWin = 1;
 		//SaveGame(Name);
@@ -123,7 +159,13 @@ int ProcessFinish(int pWhoWin) {
 
 	case 1:
 		Win2++;
-		printf("Nguoi choi %d da thang va nguoi choi %d da thua\n", false, true);
+		for (int i = 7; i < 15; i++)
+		{
+			GotoXY(61, 21);
+			GtxtColor(i);
+			printf("Nguoi choi 2 da thang va nguoi choi 1 da thua\n", true, false);
+			Sleep(500);
+		}
 		flagLoad = 0;
 		flagWin = 1;
 		//SaveGame(Name);
@@ -461,12 +503,15 @@ int selectMenu()
 
 void Win_Lose()
 {
-	GotoXY(52, 5);
-	cout << "\t\t\t PLAYER1	-	PLAYER2";
-	GotoXY(51, 6);
-	cout << "\t\t\t    " << Win1 << "		-	   " << Win2;
-	GotoXY(51, 7);
-	cout << "\t\t\t    " << _COUNT1 << "		-	   " << _COUNT2;
+	GotoXY(60,6);
+	GtxtColor(15);
+	cout << "WIN:";
+	GotoXY(47, 5);
+	cout << "\t\t\t        PLAYER1	     -	   PLAYER2";
+	GotoXY(49, 6);
+	cout << "\t\t           " << Win1 << "	     -	      " << Win2;
+	GotoXY(49, 7);
+	cout << "\t\t           " << _COUNT1 << "	     -	      " << _COUNT2;
 }
 
 int NewGame()
@@ -652,6 +697,30 @@ int main()
 {
 	while(1){
 		FixConsoleWindow();
+		GtxtColor(11);
+		GotoXY(0,7);
+		cout << "\t\t\t**********************************************************************" << endl;
+		Sleep(80);
+		cout << "\t\t\t**********************************************************************" << endl;
+		Sleep(80);
+		cout << "\t\t\t**     OXOXOXO          XOXOX        XOXOXOXOX        XOXOXOXO      **" << endl;
+		Sleep(80);
+		cout << "\t\t\t**   XOX      XO       XOX XOX       XOX     XOX    XOX      XOX    **" << endl;
+		Sleep(80);
+		cout << "\t\t\t**  XOX               XOX   XOX      XOX     XOX   XOX        XOX   **" << endl;
+		Sleep(80);
+		cout << "\t\t\t**  XOX              XOXOXOXOXOX     XOXXOXOXO     XOX        XOX   **" << endl;
+		Sleep(80);
+		cout << "\t\t\t**  XOX             XOX       XOX    XOX    XOX    XOX        XOX   **" << endl;
+		Sleep(80);
+		cout << "\t\t\t**   XOX      XO   XOX         XOX   XOX     XOX    XOX      XOX    **" << endl;
+		Sleep(80);
+		cout << "\t\t\t**     OXOXOXO    XOX           XOX  XOX      XOX     OXOXOXOX      **" << endl;
+		Sleep(80);
+		cout << "\t\t\t**********************************************************************" << endl;
+		Sleep(80);
+		cout << "\t\t\t**********************************************************************" << endl;
+		Sleep(900);
 		GotoXY(0, 18);
 		GtxtColor(11);
 		cout << "\t\t\t\t\t*\t    NEW GAME              *" << endl;
@@ -672,15 +741,15 @@ int main()
 		case 3:
 			system("cls");
 			GtxtColor(14);
-			cout << "\t\t\t\t========TRONG GIAO DIEN TRO CHOI========" << endl;
+			cout << "\t========TRONG GIAO DIEN TRO CHOI========" << endl;
 			GtxtColor(11);
-			cout << "\t\t\t\t1. Su dung cac phim W, A, S, D hoac cac phim mui ten de di chuyen." << endl;
-			GtxtColor(14);
-			cout << "\t\t\t\t2. Su dung phim Space hoac Enter de thuc hien 1 nuoc danh." << endl;
+			cout << "\t1. Su dung cac phim W, A, S, D hoac cac phim mui ten de di chuyen." << endl;
 			GtxtColor(11);
-			cout << "\t\t\t\t3. Su dung ESC de thoat khoi tro choi." << endl;
+			cout << "\t2. Su dung phim Enter de thuc hien 1 nuoc danh." << endl;
+			GtxtColor(11);
+			cout << "\t3. Su dung ESC de thoat khoi tro choi." << endl;
 			GtxtColor(14);
-			cout << "\t\t\t\t******************************************" << endl;
+			cout << "\t******************************************" << endl;
 			system("pause");
 			system("cls");
 			break;
@@ -695,6 +764,3 @@ int main()
 		if (x == 5) return 0;
 	}
 }
-
-
-
