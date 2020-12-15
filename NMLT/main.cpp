@@ -166,7 +166,7 @@ int ProcessFinish(int pWhoWin) {
 			printf("Nguoi choi 1 da thang va nguoi choi 2 da thua\n", true, false);
 			Sleep(150);
 		}
-		flagLoad = 0;
+		//flagLoad = 0;
 		flagWin = 1;
 		//SaveGame(Name);
 		Win_Lose();
@@ -183,7 +183,7 @@ int ProcessFinish(int pWhoWin) {
 			printf("Nguoi choi 2 da thang va nguoi choi 1 da thua\n", true, false);
 			Sleep(150);
 		}
-		flagLoad = 0;
+		//flagLoad = 0;
 		flagWin = 1;
 		//SaveGame(Name);
 		Win_Lose();
@@ -229,6 +229,8 @@ void StartGame() {
 
 	DrawBoard(BOARD_SIZE); // Vẽ màn hình game
 	Win_Lose();
+	flagWin = 0;
+	ViTriIny = 18;
 	//LoadGame("Game");
 }
 
@@ -533,12 +535,28 @@ void Win_Lose()
 	cout << "WIN:";
 	GotoXY(59, 8);
 	cout << "STEP:";
+	GotoXY(59, 9);
+	cout << "TURN:";
 	GotoXY(47, 6);
 	cout << "\t\t\t        PLAYER1	     -	   PLAYER2";
 	GotoXY(49, 7);
 	cout << "\t\t           " << Win1 << "	     -	      " << Win2;
 	GotoXY(49, 8);
 	cout << "\t\t           " << _COUNT1 << "	     -	      " << _COUNT2;
+	if (_COUNT1 == 0 && _COUNT2 == 0)
+	{
+		GotoXY(49, 9);
+		cout << "\t\t		     X			";
+	}
+	else if (_COUNT1> _COUNT2) {
+		GotoXY(49, 9);
+		cout << "\t\t		     O			";
+	}
+	else {
+		GotoXY(49, 9);
+		cout << "\t\t		     X			";
+	}
+	
 }
 
 int NewGame()
@@ -546,18 +564,18 @@ int NewGame()
 	FixConsoleWindow();
 	StartGame();
 	bool validEnter = true;
-	Win_Lose();
+	
+
+	//Win_Lose();
 	while (1)
 
 	{
-
 		_COMMAND = toupper(_getch());
 
 		if (_COMMAND == 27)
 
 		{
 			ExitGame();
-
 			return 0;
 
 		}
@@ -574,7 +592,9 @@ int NewGame()
 					cout << "Nhap ten tap tin muon luu: ";
 					cin >> Name;
 				}
+				
 				SaveGame(Name);
+				//flagLoad = 1;
 			}
 			else if (_COMMAND == 'T') {
 				GotoXY(ViTriInx, ViTriIny);
@@ -591,7 +611,6 @@ int NewGame()
 
 				case -1:
 					printf("X"); _COUNT1++;
-					//cout << _X<<":" << _Y;
 					Win_Lose();
 					break;
 
@@ -613,8 +632,10 @@ int NewGame()
 
 						}
 
-						else StartGame();
-
+						else
+						{						
+							StartGame();
+						}
 					}
 
 				}
@@ -641,6 +662,7 @@ int OldGame()
 	//GotoXY(52, ViTriIn);
 	//cout << "Da tai len";
 	Win_Lose();
+	
 	while (1)
 
 	{
