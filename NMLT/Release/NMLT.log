@@ -1,6 +1,10 @@
 ﻿  main.cpp
+C:\Users\hungkhaipham\Documents\Visual Studio 2019\project\NMLT\NMLT\main.cpp(166,62): warning C4474: 'printf' : too many arguments passed for format string
+C:\Users\hungkhaipham\Documents\Visual Studio 2019\project\NMLT\NMLT\main.cpp(166,62): message : placeholders and their parameters expect 0 variadic arguments, but 2 were provided
+C:\Users\hungkhaipham\Documents\Visual Studio 2019\project\NMLT\NMLT\main.cpp(183,62): warning C4474: 'printf' : too many arguments passed for format string
+C:\Users\hungkhaipham\Documents\Visual Studio 2019\project\NMLT\NMLT\main.cpp(183,62): message : placeholders and their parameters expect 0 variadic arguments, but 2 were provided
   Generating code
-  4 of 193 functions ( 2.1%) were compiled, the rest were copied from previous compilation.
+  0 of 193 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code

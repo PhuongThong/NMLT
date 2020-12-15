@@ -23,7 +23,8 @@ int Win2 = 0;//So lan thang cua nguoi choi 2
 int flagLoad = 0;//Kiem tra game moi hay game cu
 int flagWin = 0;//Thay doi luu tru khi thang game
 string Name;
-int ViTriIn = 13;
+int ViTriIny = 18;
+int ViTriInx = 55;
 
 
 void FixConsoleWindow();
