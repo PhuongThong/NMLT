@@ -8,6 +8,7 @@ void FixConsoleWindow() {
 	SetWindowLong(consoleWindow, GWL_STYLE, style);
 }
 
+//Làm mờ con trỏ trong giao diện menu
 void setCursor(bool visible, DWORD size) // set bool visible = 0 - invisible, bool visible = 1 - visible
 {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -22,17 +23,11 @@ void setCursor(bool visible, DWORD size) // set bool visible = 0 - invisible, bo
 }
 
 void GotoXY(int x, int y) {
-
 	COORD coord;
-
 	coord.X = x;
-
 	coord.Y = y;
-
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-
 }
-
 
 bool IsWin() {
 	int count = 0;
@@ -48,7 +43,6 @@ bool IsWin() {
 		}
 		if (count == 5 && _A[i + 1][New.y].c != New.c && (_A[i - 5][New.y].c == 0 || _A[i + 1][New.y].c == 0)) return true;
 	}
-
 	for (int i = k; i <= New.y + 4; i++)
 	{
 
@@ -59,7 +53,6 @@ bool IsWin() {
 		}
 		if (count == 5 && _A[New.x][i + 1].c != New.c && (_A[New.x][i - 5].c == 0 || _A[New.x][i + 1].c == 0)) return true;
 	}
-
 	for (int i = -4; i <= 4; i++)
 	{
 		if (_A[New.x + i][New.y + i].c == New.c) count += 1;
@@ -69,7 +62,6 @@ bool IsWin() {
 		}
 		if (count == 5 && _A[New.x + i + 1][New.y + i + 1].c != New.c && (_A[New.x + i - 5][New.y + i - 5].c == 0 || _A[New.x + i + 1][New.y + i + 1].c == 0)) return true;
 	}
-
 	for (int i = 4; i >= -4; i--)
 	{
 		if (_A[New.x + i][New.y - i].c == New.c) count += 1;
@@ -147,17 +139,12 @@ void DrawBoard(int pSize) {
 
 void ResetData() {
 	for (int i = 0; i < BOARD_SIZE; i++) {
-
 		for (int j = 0; j < BOARD_SIZE; j++) {
-
 			_A[i][j].x = 4 * j + LEFT + 2; // Trùng với hoành độ màn hình bàn cờ
-
 			_A[i][j].y = 2 * i + TOP + 1; // Trùng với tung độ màn hình bàn cờ
-
 			_A[i][j].c = 0; // 0 nghĩa là chưa ai đánh dấu, nếu đánh dấu phải theo quy
 			//định như sau: -1 là lượt true đánh, 1 là lượt false đánh
 		}
-
 	}
 	_TURN = true; _COMMAND = -1; // Gán lượt và phím mặc định
 	_X = _A[0][0].x; _Y = _A[0][0].y; // Thiết lập lại tọa độ hiện hành ban đầu
@@ -169,7 +156,6 @@ int ProcessFinish(int pWhoWin) {
 	GotoXY(0, _A[BOARD_SIZE - 1][BOARD_SIZE - 1].y + 2); // Nhảy tới vị trí
 	 // thích hợp để in chuỗi thắng/thua/hòa
 	switch (pWhoWin) {
-
 	case -1:
 		Win1++;
 		for (int i = 7; i < 15; i++)
@@ -179,14 +165,11 @@ int ProcessFinish(int pWhoWin) {
 			printf("Nguoi choi 1 da thang va nguoi choi 2 da thua\n", true, false);
 			Sleep(150);
 		}
-		//flagLoad = 0;
 		flagWin = 1;
-		//SaveGame(Name);
 		Win_Lose();
 		_COUNT1 = 0;
 		_COUNT2 = 0;
 		break;
-
 	case 1:
 		Win2++;
 		for (int i = 7; i < 15; i++)
@@ -196,9 +179,7 @@ int ProcessFinish(int pWhoWin) {
 			printf("Nguoi choi 2 da thang va nguoi choi 1 da thua\n", true, false);
 			Sleep(150);
 		}
-		//flagLoad = 0;
 		flagWin = 1;
-		//SaveGame(Name);
 		Win_Lose();
 		_COUNT1 = 0;
 		_COUNT2 = 0;
@@ -210,11 +191,9 @@ int ProcessFinish(int pWhoWin) {
 		break;
 	case 2:
 		_TURN = !_TURN; // Đổi lượt nếu không có gì xảy ra
-
 	}
 	GotoXY(_X, _Y); // Trả về vị trí hiện hành của con trỏ màn hình bàn cờ
 	return pWhoWin;
-
 }
 
 int AskContinue() {
@@ -235,20 +214,15 @@ int AskSave() {
 }
 
 void StartGame() {
-
 	system("cls");
-
 	ResetData(); // Khởi tạo dữ liệu gốc
-
 	DrawBoard(BOARD_SIZE); // Vẽ màn hình game
 	Win_Lose();
 	flagWin = 0;
 	ViTriIny = 18;
-	//LoadGame("Game");
 }
 
 void GabageCollect()
-
 {
 	_COUNT1 = 0;//Dem nuoc co nguoi choi 1;
 	_COUNT2 = 0;//Dem nuoc co nguoi choi 2;
@@ -258,19 +232,16 @@ void GabageCollect()
 	flagWin = 0;//Thay doi luu tru khi thang game
 	ViTriIny = 18;
 	// Dọn dẹp tài nguyên nếu có khai báo con trỏ
-
 }
 
 
 
 //Hàm thoát game (hàm nhóm Control)
-
 void ExitGame() {
 	if (AskSave() == 'Y')
 	{
 		if (flagLoad != 1) {
 			GotoXY(ViTriInx, ViTriIny);
-			//ViTriIny++;
 			cout << "Nhap ten tap tin muon luu: ";
 			cin >> Name;
 		}
@@ -278,9 +249,6 @@ void ExitGame() {
 	}
 	system("cls");
 	GabageCollect();
-	//SaveGame("Game");
-	//Có thể lưu game trước khi exit
-
 }
 
 int TestBoard()
@@ -298,22 +266,7 @@ int TestBoard()
 		else return 2;
 	}
 }
-//int TestBoard()
-//{
-//	
-//		if (<Ma trận đầy>) return 0; // Hòa
-//	
-//		else {
-//			
-//				if (<tồn tại điều kiện thắng theo luật caro>)
-//					
-//					return (_TURN == true ? -1 : 1); // -1 nghĩa là lượt ‘true’ thắng
-//				Else
-//			
-//				return 2; // 2 nghĩa là chưa ai thắng
-//			
-//		}
-//}
+
 
 int CheckBoard(int pX, int pY) {
 	for (int i = 0; i < BOARD_SIZE; i++) {
@@ -325,37 +278,26 @@ int CheckBoard(int pX, int pY) {
 				New.x = i;
 				New.y = j;
 				return _A[i][j].c;
-
 			}
-
 		}
-
 	}
 	return 0;
 }
 
 
 void MoveRight() {
-
 	if (_X < _A[BOARD_SIZE - 1][BOARD_SIZE - 1].x)
-
 	{
-
 		_X += 4;
-
 		GotoXY(_X, _Y);
-
 	}
-
 }
 
 void MoveLeft() {
 	if (_X > _A[0][0].x) {
 		_X -= 4;
 		GotoXY(_X, _Y);
-
 	}
-
 }
 void MoveDown() {
 	if (_Y < _A[BOARD_SIZE - 1][BOARD_SIZE - 1].y)
@@ -369,9 +311,7 @@ void MoveUp() {
 	if (_Y > _A[0][0].y) {
 		_Y -= 2;
 		GotoXY(_X, _Y);
-
 	}
-
 }
 void SaveGame(string name)
 {
@@ -427,6 +367,7 @@ void GtxtColor(int x) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), x);
 }
 
+//In menu
 void printMenu(int selection)
 {
 	switch (selection)
@@ -444,9 +385,6 @@ void printMenu(int selection)
 		GotoXY(0, 21);
 		GtxtColor(11);
 		cout << "\t\t\t\t\t*\t    EXIT GAME             *";
-		//GotoXY(0, 22);
-		//GtxtColor(11);
-		//cout << "\t\t\t\t\t*\t    EXIT GAME             *";
 		break;
 	case 2:
 		GotoXY(0, 18);
@@ -484,26 +422,14 @@ void printMenu(int selection)
 		cout << "\t\t\t\t\t*\t    NEW GAME              *";
 		GotoXY(0, 24);
 		break;
-	//case 5:
-	//	GotoXY(0, 21);
-	//	GtxtColor(11);
-	//	cout << "\t\t\t\t\t*\t    ABOUT                 *";
-	//	GotoXY(52, 22);
-	//	GtxtColor(12);
-	//	cout << "EXIT GAME";
-	//	GotoXY(0, 18);
-	//	GtxtColor(11);
-	//	cout << "\t\t\t\t\t*\t    NEW GAME              *";
-	//	GotoXY(0, 24);
-	//	break;
 	}
 }
 
+//Lựa chọn
 int selectMenu()
 {
 	int selection = 1;
 	int choose = 0;
-	setCursor(0, 20);
 	printMenu(selection);
 	while (1)
 	{
@@ -513,16 +439,14 @@ int selectMenu()
 		{
 			switch (selection)
 			{
-			case 1: case 2: case 3: /*case 4*/
+			case 1: case 2: case 3: 
 				selection++;
 				break;
 			case 4:
 				selection = 1;
 				break;
 			}
-
 			printMenu(selection);
-
 		}
 		if (move == 'W' || move == 72)
 		{
@@ -531,7 +455,7 @@ int selectMenu()
 			case 1:
 				selection = 4;
 				break;
-			case 2: case 3: case 4: /*case 5:*/
+			case 2: case 3: case 4:
 				selection--;
 				break;
 			}
@@ -542,6 +466,7 @@ int selectMenu()
 	}
 }
 
+//In số lượt đánh, số trận thắng/thua/hòa
 void Win_Lose()
 {
 	GotoXY(60, 7);
@@ -570,28 +495,22 @@ void Win_Lose()
 		GotoXY(49, 9);
 		cout << "\t\t		     X			";
 	}
-
 }
 
+//Tạo game mới
 int NewGame()
 {
 	FixConsoleWindow();
 	StartGame();
 	bool validEnter = true;
-
-
-	//Win_Lose();
+	GotoXY(5, 2);
 	while (1)
-
 	{
 		_COMMAND = toupper(_getch());
-
 		if (_COMMAND == 27)
-
 		{
 			ExitGame();
 			return 0;
-
 		}
 		else {
 			if (_COMMAND == 'A') MoveLeft();
@@ -606,90 +525,71 @@ int NewGame()
 					cout << "Nhap ten tap tin muon luu: ";
 					cin >> Name;
 				}
-
 				SaveGame(Name);
-				//flagLoad = 1;
 			}
 			else if (_COMMAND == 'T') {
 				GotoXY(ViTriInx, ViTriIny);
-				//ViTriIny++;
 				cout << "Nhap ten tap tin muon tai len: ";
 				cin >> Name;
 				LoadGame(Name);
 				flagLoad = 1;
-				//GotoXY(52, ViTriIn);
-				//cout << "Da tai len";
 			}
 			else if (_COMMAND == 13) {// Người dùng đánh dấu trên màn hình bàn cờ
 				switch (CheckBoard(_X, _Y)) {
-
 				case -1:
+					GtxtColor(9);
 					printf("X"); _COUNT1++;
 					Win_Lose();
 					break;
-
 				case 1:
+					GtxtColor(12);
 					printf("O"); _COUNT2++; Win_Lose(); break;
 				case 0: validEnter = false; // Khi đánh vào ô đã đánh rồi
-
 				}
 				// Tiếp theo là kiểm tra và xử lý thắng/thua/hòa/tiếp tục
 				if (validEnter == true) {
-
 					switch (ProcessFinish(TestBoard())) {
-
+					//Hỏi xem có muốn tiếp tục hay không
 					case -1: case 1: case 0:
 						if (AskContinue() != 'Y') {
-
 							ExitGame();
 							return 0;
-
 						}
-
 						else
 						{
 							StartGame();
+							GotoXY(5, 2);
 						}
 					}
 
 				}
 				validEnter = true; // Mở khóa
-
 			}
-
 		}
-
 	}
 }
 
+//Tải game đã lưu
 int OldGame()
 {
 	FixConsoleWindow();
 	StartGame();
 	bool validEnter = true;
 	GotoXY(ViTriInx, ViTriIny);
-	//ViTriIny++;
 	cout << "Nhap ten tap tin muon tai len: ";
 	cin >> Name;
 	LoadGame(Name);
 	flagLoad = 1;
-	//GotoXY(52, ViTriIn);
-	//cout << "Da tai len";
 	Win_Lose();
-
+	GotoXY(5, 2);
 	while (1)
-
 	{
-
 		_COMMAND = toupper(_getch());
-
 		if (_COMMAND == 27)
 
 		{
 			ExitGame();
-
 			return 0;
-
 		}
 		else {
 			if (_COMMAND == 'A') MoveLeft();
@@ -700,7 +600,6 @@ int OldGame()
 			{
 				if (flagLoad != 1) {
 					GotoXY(ViTriInx, ViTriIny);
-					//ViTriIny++;
 					cout << "Nhap ten tap tin muon luu: ";
 					cin >> Name;
 				}
@@ -708,53 +607,44 @@ int OldGame()
 			}
 			else if (_COMMAND == 'T') {
 				GotoXY(ViTriInx, ViTriIny);
-				//ViTriIny++;
 				cout << "Nhap ten tap tin muon tai len: ";
 				cin >> Name;
 				LoadGame(Name);
 				flagLoad = 1;
-				//GotoXY(52, ViTriIn);
-				//cout << "Da tai len";
 			}
 			else if (_COMMAND == 13) {// Người dùng đánh dấu trên màn hình bàn cờ
 				switch (CheckBoard(_X, _Y)) {
-
 				case -1:
+					GtxtColor(9);
 					printf("X"); _COUNT1++;
-					//cout << _X<<":" << _Y;
 					Win_Lose();
 					break;
-
 				case 1:
+					GtxtColor(12);
 					printf("O"); _COUNT2++;
 					Win_Lose(); break;
 				case 0: validEnter = false; // Khi đánh vào ô đã đánh rồi
-
 				}
 				// Tiếp theo là kiểm tra và xử lý thắng/thua/hòa/tiếp tục
 				if (validEnter == true) {
-
 					switch (ProcessFinish(TestBoard())) {
-
+					//Hỏi xem có muốn tiếp tục hay không
 					case -1: case 1: case 0:
 						if (AskContinue() != 'Y') {
-
 							ExitGame();
 							return 0;
-
 						}
-
-						else StartGame();
-
+						else
+						{
+							StartGame();
+							GotoXY(5, 2);
+						}
 					}
 
 				}
 				validEnter = true; // Mở khóa
-
 			}
-
 		}
-
 	}
 }
 
@@ -763,6 +653,7 @@ int main()
 	while (1) {
 		FixConsoleWindow();
 		GtxtColor(11);
+		setCursor(0, 20);
 		GotoXY(0, 7);
 		cout << "\t\t\t**********************************************************************" << endl;
 		Sleep(40);
@@ -793,8 +684,6 @@ int main()
 		cout << "\t\t\t\t\t*\t    LOAD GAME             *" << endl;
 		Sleep(40);
 		cout << "\t\t\t\t\t*\t    HELP                  *" << endl;
-		//Sleep(40);
-		//cout << "\t\t\t\t\t*\t    ABOUT                 *" << endl;
 		Sleep(40);
 		cout << "\t\t\t\t\t*\t    EXIT GAME             *" << endl;
 		Sleep(40);
