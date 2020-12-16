@@ -408,6 +408,7 @@ void LoadGame(string name)
 	}
 	f.close();
 	Win_Lose();
+	GotoXY(5, 2);
 }
 
 void GtxtColor(int x) {
@@ -564,8 +565,7 @@ int NewGame()
 	FixConsoleWindow();
 	StartGame();
 	bool validEnter = true;
-	
-
+	GotoXY(5, 2);
 	//Win_Lose();
 	while (1)
 
@@ -635,6 +635,7 @@ int NewGame()
 						else
 						{						
 							StartGame();
+							GotoXY(5, 2);
 						}
 					}
 
@@ -662,11 +663,11 @@ int OldGame()
 	//GotoXY(52, ViTriIn);
 	//cout << "Da tai len";
 	Win_Lose();
-	
+	GotoXY(5, 2);
 	while (1)
 
 	{
-
+		
 		_COMMAND = toupper(_getch());
 
 		if (_COMMAND == 27)
@@ -730,7 +731,11 @@ int OldGame()
 
 						}
 
-						else StartGame();
+						else
+						{
+							StartGame();
+							GotoXY(5, 2);
+						}
 
 					}
 
